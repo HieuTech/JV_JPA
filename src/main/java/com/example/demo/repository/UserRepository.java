@@ -13,6 +13,6 @@ public interface UserRepository extends JpaRepository<Users,Integer> {
      * tim username and password, if exist, return a list
      *
      */
-//    List<Users> findByUserNameAndAndUserPassword(String userName, String userPw);
+    List<Users> findByUserNameAndAndUserPassword(String userName, String userPw);
 
 }

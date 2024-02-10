@@ -2,14 +2,14 @@ package com.example.demo.Controller;
 
 import com.example.demo.DTO.UserDTO;
 import com.example.demo.entity.Users;
+import com.example.demo.payload.ResponseData;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.LoginService;
+import com.example.demo.service.imp.LoginServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,14 +18,20 @@ import java.util.List;
 @RequestMapping("/login")
 public class SigninController {
 
+    //khi gọi interface thì các hàm trong nó sẽ kich họat, nhưng class nào implement lại sẽ dc chạy
     @Autowired
-    LoginService loginService;
+    LoginServiceImp loginServiceImp;
 
     @PostMapping("/signin")
-    public ResponseEntity<?> signin(){
+    public ResponseEntity<?> signin(@RequestParam String userName, @RequestParam String userPw){
+        ResponseData responseData = new ResponseData();
+        if(loginServiceImp.checkLogin(userName,userPw)){
+            responseData.setData(true);
+        }else{
+            responseData.setData(false);
+        }
 
-
-         return new ResponseEntity<>(loginService.getAllUser(), HttpStatus.OK);
+         return new ResponseEntity<>(responseData, HttpStatus.OK);
 
     }
 }

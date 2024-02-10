@@ -13,15 +13,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class LoginService  {
+public class LoginService implements LoginServiceImp {
     @Autowired
     UserRepository userRepository;
-//    @Override
-//    public boolean checkLogin(String userName, String userPw){
-//
-//        return false;
-//    }
-
+    @Override
+    public boolean checkLogin(String userName, String userPw){
+    List<Users> usersList = userRepository.findByUserNameAndAndUserPassword(userName,userPw);
+        return usersList.size() > 0;
+    }
+    @Override
     public List<UserDTO> getAllUser(){
         List<Users> listUser =  userRepository.findAll();
         List<UserDTO> userDTOList = new ArrayList<>();
