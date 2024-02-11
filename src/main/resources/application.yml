@@ -23,3 +23,6 @@ spring:
     hibernate.ddl-auto: none
     generate-ddl: true
     show-sql: true
+
+jwt:
+  privateKey: mTYSBWNYZeBG9x4W5RwLK4VwQK+vDCXErY17G2GqiL4=

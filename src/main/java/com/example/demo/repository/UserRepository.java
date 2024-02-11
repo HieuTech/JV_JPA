@@ -14,4 +14,5 @@ public interface UserRepository extends JpaRepository<Users,Integer> {
      *đây la query Creation
      */
     List<Users> findByUserNameAndAndUserPassword(String userName, String userPw);
+    Users findByUserName(String userName);
 }

@@ -41,21 +41,5 @@ public class LoginService implements LoginServiceImp {
 
        }
    }
-    @Override
-    public List<UserDTO> getAllUser(){
-        List<Users> listUser =  userRepository.findAll();
-        List<UserDTO> userDTOList = new ArrayList<>();
-        for(Users user : listUser){
-            UserDTO userDTO = new UserDTO();
-            userDTO.setId(user.getId());
-            userDTO.setUserName(user.getUserName());
-            userDTO.setUserPassword(user.getUserPassword());
-            userDTO.setCreateAt(user.getCreateAt());
 
-            userDTOList.add(userDTO);
-
-            System.out.println(user.getUserName());
-        }
-    return userDTOList;
-    }
 }
