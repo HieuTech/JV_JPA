@@ -8,6 +8,7 @@ import com.example.demo.payload.request.SignUpRequest;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.LoginService;
 import com.example.demo.service.imp.LoginServiceImp;
+import com.example.demo.utils.JwtUtilsHelper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Encoders;
 import io.jsonwebtoken.security.Keys;
@@ -30,18 +31,24 @@ public class SigninController {
     @Autowired
     LoginServiceImp loginServiceImp;
 
-
+    @Autowired
+    JwtUtilsHelper jwtUtilsHelper;
 
     @PostMapping("/signin")
     public ResponseEntity<?> signin(@RequestParam String userName, @RequestParam String userPw){
         ResponseData responseData = new ResponseData();
+
 //        SecretKey secretKey = Jwts.SIG.HS256.key().build();
 //        String secretString = Encoders.BASE64.encode(secretKey.getEncoded());
 //        System.out.println(secretString);
         if(loginServiceImp.checkLogin(userName,userPw)){
-            responseData.setData(true);
+            String token = jwtUtilsHelper.generateToken(userName);
+            responseData.setData(token);
+
         }else{
-            responseData.setData(false);
+
+            responseData.setData("");
+            responseData.setSuccess(false);
         }
 
          return new ResponseEntity<>(responseData, HttpStatus.OK);
